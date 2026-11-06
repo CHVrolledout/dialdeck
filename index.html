@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dial Deck: call, WhatsApp or text in one tap</title>
-<meta name="description" content="A speed dial widget for your Android home screen. Recent calls and favourite contacts, one tap to call, chat on WhatsApp or text. Free, no ads, nothing leaves your phone.">
+<meta name="description" content="A speed dial widget for your Android home screen. Your favourite contacts, one tap to call, chat on WhatsApp or text. Free, no ads, nothing leaves your phone.">
 <meta name="theme-color" content="#F3ECDF">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dial Deck: your people, one tap away">
-<meta property="og:description" content="A speed dial widget for Android. Call, WhatsApp or text in one tap. Join the free beta.">
+<meta property="og:description" content="A speed dial widget for Android. Call, WhatsApp or text in one tap. Free on Google Play.">
 <meta property="og:image" content="https://chvrolledout.github.io/dialdeck/img/share.png">
 <meta property="og:url" content="https://chvrolledout.github.io/dialdeck/">
 <meta name="twitter:card" content="summary_large_image">
@@ -135,40 +135,38 @@
   <header class="top">
     <img src="img/icon.png" alt="">
     <b>Dial Deck</b>
-    <span class="pill-tag">Free beta</span>
+    <span class="pill-tag">Free</span>
   </header>
 
   <main>
     <div class="hero">
       <h1>Your people, <em>one tap</em> away</h1>
       <p class="lead">A speed dial widget for your Android home screen. Call, WhatsApp or text the people you talk to most, without opening a single app.</p>
-      <a class="btn btn-dark" href="#join">Join the beta</a>
+      <a class="btn btn-dark" id="get" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a>
       <p class="note">Free · No ads · Android 12 and newer</p>
-      <img class="hero-img" src="img/hero.png" width="1080" height="970"
-           alt="The Dial Deck widget on a real home screen: favourite contacts with a bar to call, WhatsApp or text">
+      <img class="hero-img" src="img/hero.png" width="960" height="862"
+           alt="The Dial Deck widget: favourite contacts with a side bar to call, WhatsApp or text">
     </div>
 
-    <section id="join">
-      <h2>Join the beta</h2>
+    <section id="setup">
+      <h2>Get started</h2>
       <div class="card">
         <div class="step">
           <div class="num">1</div>
           <div style="flex:1">
-            <h3>Join the testing group</h3>
-            <p>Google Play only lets members of this group install the beta. Joining is one tap.</p>
-            <a class="btn btn-soft" href="https://groups.google.com/g/dial-deck-testing/" target="_blank" rel="noopener">Open the group</a>
+            <h3>Install from Google Play</h3>
+            <p>Free, no ads, no account.</p>
+            <a class="btn btn-green" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get Dial Deck</a>
           </div>
         </div>
         <div class="step">
           <div class="num">2</div>
           <div style="flex:1">
-            <h3>Install from Google Play</h3>
-            <p>Use the same Google account. Tap "Become a tester", then download Dial Deck.</p>
-            <a class="btn btn-green" href="https://play.google.com/apps/testing/com.himavarshan.dialdeck" target="_blank" rel="noopener">Get Dial Deck</a>
+            <h3>Add the widget</h3>
+            <p>Open Dial Deck, allow access and tap "Add to home screen". Or long-press your home screen, tap Widgets and add Dial Deck.</p>
           </div>
         </div>
       </div>
-      <p class="note" style="text-align:center">Then long-press your home screen, tap Widgets and add Dial Deck. Or tap "Add to home screen" in the app.</p>
     </section>
 
     <section>
@@ -180,7 +178,7 @@
         </div>
         <div class="feat">
           <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 8v4l2 2"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path d="M3.55 20v-5h5"/></svg></div>
-          <div><h3>Recents and favourites</h3><p>Your latest calls, missed ones in red, and your starred contacts, in your order or most called first.</p></div>
+          <div><h3>Your favourite contacts</h3><p>Your starred contacts, in your own order, A–Z or Z–A. The clock button opens your phone's call history.</p></div>
         </div>
         <div class="feat">
           <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.5-.8 1.5-1.5s-.5-1.2-.5-2a1.5 1.5 0 0 1 1.5-1.5H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><path d="M7.5 11.5h.01"/><path d="M10 7.5h.01"/><path d="M14.5 7.5h.01"/></svg></div>
@@ -188,7 +186,7 @@
         </div>
         <div class="feat">
           <div class="ico"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7l8-11h-6z"/></svg></div>
-          <div><h3>Always up to date</h3><p>Recents refresh seconds after a call ends, and new names show up on their own. Uses almost no battery.</p></div>
+          <div><h3>Always up to date</h3><p>New, renamed or starred contacts show up on their own. Uses almost no battery.</p></div>
         </div>
       </div>
     </section>
@@ -197,7 +195,7 @@
       <h2>A closer look</h2>
       <div class="gallery">
         <img src="img/modes.png" width="1080" height="1920" alt="Side bar with Call, WhatsApp and SMS modes" loading="lazy">
-        <img src="img/favourites.png" width="1080" height="1920" alt="Favourites sorted your way" loading="lazy">
+        <img src="img/favourites.png" width="1080" height="1920" alt="Favourites in your own order, A–Z or Z–A" loading="lazy">
         <img src="img/themes.png" width="1080" height="1920" alt="Glass, Paper, Midnight and Aurora themes" loading="lazy">
       </div>
     </section>
@@ -206,7 +204,7 @@
       <h2>Private by design</h2>
       <div class="card private">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M6 11h12v9H6z"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
-        <p><b>Nothing leaves your phone</b>Dial Deck has no internet access at all. No accounts, no ads, no tracking. Your calls and contacts are only used to draw the widget.</p>
+        <p><b>Nothing leaves your phone</b>Dial Deck has no internet access at all. No accounts, no ads, no tracking. Your contacts are only used to draw the widget.</p>
       </div>
     </section>
 
@@ -214,8 +212,8 @@
       <h2>Questions</h2>
       <div class="card faq">
         <details>
-          <summary>Why does it ask for call log and contacts?</summary>
-          <p>To show your recent calls and starred contacts in the widget, with their names and photos. Everything is read on your phone and never sent anywhere; the app can't even connect to the internet.</p>
+          <summary>Why does it ask for contacts and phone?</summary>
+          <p>Contacts, to show your starred contacts in the widget with their names and photos. Phone, to place a call when you tap a name. Everything stays on your phone and is never sent anywhere; the app can't even connect to the internet.</p>
         </details>
         <details>
           <summary>Is it really free?</summary>
@@ -224,10 +222,6 @@
         <details>
           <summary>Which phones does it work on?</summary>
           <p>Android 12 or newer, with any launcher that supports widgets: Pixel, Samsung, OnePlus, Vivo, Xiaomi, Niagara and more.</p>
-        </details>
-        <details>
-          <summary>Why do I need to join a group first?</summary>
-          <p>Dial Deck is in a closed beta on Google Play. Google only shows beta apps to people in the testers' group, so step 1 unlocks step 2.</p>
         </details>
         <details>
           <summary>How do I send feedback?</summary>
@@ -244,17 +238,20 @@
   </footer>
 </div>
 
-<!-- Sticky join button; hides while the join steps are on screen -->
-<div class="bar" id="bar"><div class="wrap"><a class="btn btn-green" href="#join">Join the free beta</a></div></div>
+<!-- Sticky Google Play button; hides while the main button or the setup steps are on screen -->
+<div class="bar" id="bar"><div class="wrap"><a class="btn btn-green" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a></div></div>
 
 <script>
   (function () {
     var bar = document.getElementById('bar');
-    var join = document.getElementById('join');
-    if (!('IntersectionObserver' in window) || !bar || !join) return;
-    new IntersectionObserver(function (e) {
-      bar.classList.toggle('hide', e[0].isIntersecting);
-    }, { threshold: 0.2 }).observe(join);
+    var watch = [document.getElementById('get'), document.getElementById('setup')];
+    if (!('IntersectionObserver' in window) || !bar || !watch[0] || !watch[1]) return;
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { seen[e.target.id] = e.isIntersecting; });
+      bar.classList.toggle('hide', !!(seen.get || seen.setup));
+    }, { threshold: 0.2 });
+    watch.forEach(function (el) { io.observe(el); });
   })();
 </script>
 </body>
