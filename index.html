@@ -3,22 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Dial Deck: call, WhatsApp or text in one tap</title>
-<meta name="description" content="A speed dial widget for your Android home screen. Your favourite contacts, one tap to call, chat on WhatsApp or text. Free, no ads, nothing leaves your phone.">
-<meta name="theme-color" content="#F3ECDF">
+<title>Dial Deck: a simple Phone app for Android</title>
+<meta name="description" content="A calm, simple Phone app for Android: big clear buttons, your favourites in your own order, a call screen that's easy to use, and a home-screen widget. Free, no ads, nothing leaves your phone.">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Dial Deck: your people, one tap away">
-<meta property="og:description" content="A speed dial widget for Android. Call, WhatsApp or text in one tap. Free on Google Play.">
+<meta property="og:title" content="Dial Deck: a simple Phone app">
+<meta property="og:description" content="Big clear buttons, your favourites, an easy call screen and a home-screen widget. Free on Google Play.">
 <meta property="og:image" content="https://chvrolledout.github.io/dialdeck/img/share.png">
 <meta property="og:url" content="https://chvrolledout.github.io/dialdeck/">
 <meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
-    --bg: #F3ECDF; --card: #FBF7EF; --stroke: #E6DCCB; --hair: #D9CCB6; --field: #EDE4D3;
-    --ink: #2B2620; --muted: #8A7F70; --green: #1FA463; --green-dark: #17834F;
-    --radius: 22px;
+    --bg: #FFFFFF; --card: #F2F5F4; --field: #E8EEEC; --line: #DCE3E0;
+    --ink: #0F1513; --muted: #586560; --accent: #0E7C5D; --on-accent: #FFFFFF; --tint: #D7EFE8;
+    --radius: 24px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000000; --card: #141A18; --field: #1F2724; --line: #2B3531;
+      --ink: #E9EFEC; --muted: #8F9D97; --accent: #6ADCBC; --on-accent: #06120E; --tint: #1D3931;
+    }
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -29,100 +36,85 @@
     padding-bottom: calc(96px + env(safe-area-inset-bottom));
   }
   a { color: inherit; }
-  .wrap { max-width: 560px; margin: 0 auto; padding: 0 20px; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
 
-  /* Top bar */
-  .top { display: flex; align-items: center; gap: 12px; padding: 20px 0 8px; }
-  .top img { width: 40px; height: 40px; border-radius: 12px; box-shadow: 0 0 0 1px var(--stroke); }
-  .top b { font-weight: 600; font-size: 19px; letter-spacing: .2px; }
-  .pill-tag { margin-left: auto; font-size: 13px; color: var(--green-dark); background: rgba(31,164,99,.12);
+  .top { display: flex; align-items: center; gap: 12px; padding: 20px 4px 8px; }
+  .top img { width: 40px; height: 40px; border-radius: 12px; }
+  .top b { font-weight: 600; font-size: 19px; }
+  .pill-tag { margin-left: auto; font-size: 13px; color: var(--accent); background: var(--tint);
               padding: 6px 12px; border-radius: 99px; font-weight: 600; }
 
-  /* Hero */
   .hero { text-align: center; padding: 28px 0 8px; }
-  h1 { font-size: clamp(34px, 9vw, 46px); line-height: 1.08; font-weight: 300; letter-spacing: -.5px; margin: 0 0 14px; }
-  h1 em { font-style: normal; font-weight: 600; }
+  h1 { font-size: clamp(34px, 9vw, 46px); line-height: 1.08; font-weight: 400; letter-spacing: -.5px; margin: 0 0 14px; }
+  h1 em { font-style: normal; font-weight: 700; color: var(--accent); }
   .lead { color: var(--muted); font-size: 18px; margin: 0 auto 26px; max-width: 26em; }
   .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
          padding: 17px 22px; border-radius: 99px; font-weight: 600; font-size: 17px; text-decoration: none;
-         border: 0; cursor: pointer; transition: transform .15s ease, background .15s ease; }
+         border: 0; cursor: pointer; transition: transform .15s ease, filter .15s ease; }
   .btn:active { transform: scale(.98); }
-  .btn-dark { background: var(--ink); color: var(--card); }
-  .btn-green { background: var(--green); color: #fff; }
-  .btn-green:hover { background: var(--green-dark); }
-  .btn-soft { background: var(--field); color: var(--ink); }
+  .btn-accent { background: var(--accent); color: var(--on-accent); }
+  .btn-accent:hover { filter: brightness(1.06); }
   .note { font-size: 14px; color: var(--muted); margin: 12px 0 0; }
   img { max-width: 100%; height: auto; }
-  .hero-img { display: block; width: 100%; margin: 30px 0 0; border-radius: 28px;
-              box-shadow: 0 30px 60px -28px rgba(43,38,32,.55); }
+  .hero-img { display: block; width: 100%; margin: 30px 0 0; border-radius: 28px; }
 
-  /* Sections */
   section { padding: 44px 0 0; }
-  h2 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
-       font-weight: 600; margin: 0 0 14px 4px; }
-  .card { background: var(--card); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 22px; }
-  .card + .card { margin-top: 12px; }
+  h2 { font-size: 15px; color: var(--muted); font-weight: 500; margin: 0 0 10px 8px; }
+  .card { background: var(--card); border-radius: var(--radius); padding: 20px; }
 
-  /* Join steps */
   .step { display: flex; gap: 16px; align-items: flex-start; }
-  .step + .step { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--stroke); }
-  .num { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--hair);
-         display: grid; place-items: center; font-weight: 600; font-size: 15px; }
+  .step + .step { margin-top: 20px; padding-top: 20px; border-top: 1.5px solid var(--line); }
+  .num { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--tint); color: var(--accent);
+         display: grid; place-items: center; font-weight: 700; font-size: 15px; }
   .step h3 { margin: 4px 0 4px; font-size: 18px; font-weight: 600; }
   .step p { margin: 0 0 14px; color: var(--muted); font-size: 15px; }
+  .step p:last-child { margin-bottom: 0; }
   .step .btn { padding: 14px 18px; font-size: 16px; }
 
-  /* Features */
   .feat { display: flex; gap: 16px; align-items: flex-start; }
   .feat + .feat { margin-top: 20px; }
-  .ico { flex: none; width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--hair);
-         display: grid; place-items: center; }
-  .ico.on { background: var(--green); border-color: var(--green); }
-  .ico svg { width: 22px; height: 22px; fill: none; stroke: var(--ink); stroke-width: 1.7;
+  .ico { flex: none; width: 44px; height: 44px; border-radius: 14px; background: var(--tint);
+         display: grid; place-items: center; color: var(--accent); }
+  .ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8;
              stroke-linecap: round; stroke-linejoin: round; }
-  .ico.on svg { stroke: #fff; }
-  .feat h3 { margin: 2px 0 2px; font-size: 17px; font-weight: 600; }
+  .feat h3 { margin: 1px 0 2px; font-size: 17px; font-weight: 600; }
   .feat p { margin: 0; color: var(--muted); font-size: 15px; }
 
-  /* Gallery */
-  .gallery { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 20px 8px;
-             margin: 0 -20px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .gallery { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 16px 8px;
+             margin: 0 -16px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .gallery::-webkit-scrollbar { display: none; }
-  .gallery img { flex: none; width: 62%; max-width: 280px; border-radius: 20px; scroll-snap-align: center;
-                 box-shadow: 0 0 0 1px var(--stroke); }
+  .gallery figure { flex: none; width: 62%; max-width: 260px; margin: 0; scroll-snap-align: center; }
+  .gallery img { display: block; width: 100%; border-radius: 22px; box-shadow: 0 0 0 1px var(--line); }
+  .gallery figcaption { font-size: 14px; color: var(--muted); text-align: center; margin-top: 8px; }
 
-  /* Privacy */
   .private { display: flex; gap: 16px; align-items: center; }
   .private p { margin: 0; color: var(--muted); font-size: 15px; }
   .private b { color: var(--ink); display: block; font-size: 17px; margin-bottom: 2px; }
 
-  /* FAQ */
-  details { border-top: 1px solid var(--stroke); }
+  details { border-top: 1.5px solid var(--line); }
   details:first-child { border-top: 0; }
   summary { list-style: none; cursor: pointer; padding: 16px 30px 16px 0; font-weight: 600; position: relative; }
   summary::-webkit-details-marker { display: none; }
   summary::after { content: ""; position: absolute; right: 4px; top: 50%; width: 9px; height: 9px;
-                   border-right: 1.7px solid var(--muted); border-bottom: 1.7px solid var(--muted);
+                   border-right: 1.8px solid var(--muted); border-bottom: 1.8px solid var(--muted);
                    transform: translateY(-70%) rotate(45deg); transition: transform .2s ease; }
   details[open] summary::after { transform: translateY(-30%) rotate(225deg); }
   details p { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
-  .faq { padding: 4px 22px; }
+  .faq { padding: 4px 20px; }
 
   footer { text-align: center; color: var(--muted); font-size: 14px; padding: 40px 0 10px; }
-  footer a { color: var(--ink); }
   footer .links { display: flex; justify-content: center; gap: 18px; margin-bottom: 10px; }
+  footer a { color: var(--ink); }
 
-  /* Sticky join bar */
   .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
-         padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
-         background: rgba(243,236,223,.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-         border-top: 1px solid var(--stroke); transition: transform .25s ease; }
+         padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+         background: color-mix(in srgb, var(--bg) 86%, transparent);
+         backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+         border-top: 1px solid var(--line); transition: transform .25s ease; }
   .bar .wrap { padding: 0; }
   .bar.hide { transform: translateY(110%); }
 
-  @media (min-width: 720px) {
-    .gallery img { width: 240px; }
-  }
+  @media (min-width: 720px) { .gallery figure { width: 230px; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .btn, .bar, summary::after { transition: none; }
@@ -140,12 +132,12 @@
 
   <main>
     <div class="hero">
-      <h1>Your people, <em>one tap</em> away</h1>
-      <p class="lead">A speed dial widget for your Android home screen. Call, WhatsApp or text the people you talk to most, without opening a single app.</p>
-      <a class="btn btn-dark" id="get" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a>
+      <h1>A <em>simple</em> Phone app</h1>
+      <p class="lead">Your calls, favourites and contacts in one calm place, with big clear buttons and a call screen that's easy to use. Plus a home-screen widget for the people you call most.</p>
+      <a class="btn btn-accent" id="get" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a>
       <p class="note">Free · No ads · Android 12 and newer</p>
       <img class="hero-img" src="img/hero.png" width="960" height="862"
-           alt="The Dial Deck widget: favourite contacts with a side bar to call, WhatsApp or text">
+           alt="Dial Deck: Recents on the left, an incoming call on the right">
     </div>
 
     <section id="setup">
@@ -156,14 +148,21 @@
           <div style="flex:1">
             <h3>Install from Google Play</h3>
             <p>Free, no ads, no account.</p>
-            <a class="btn btn-green" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get Dial Deck</a>
+            <a class="btn btn-accent" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get Dial Deck</a>
           </div>
         </div>
         <div class="step">
           <div class="num">2</div>
           <div style="flex:1">
-            <h3>Add the widget</h3>
-            <p>Open Dial Deck, allow access and tap "Add to home screen". Or long-press your home screen, tap Widgets and add Dial Deck.</p>
+            <h3>Make it your Phone app</h3>
+            <p>Open Dial Deck and tap "Make it my phone app". Android asks which Phone app to use; pick Dial Deck. You can switch back any time.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <div style="flex:1">
+            <h3>Add the widget (optional)</h3>
+            <p>Long-press your home screen, tap Widgets and add Dial Deck: your favourites and recent calls, one tap away.</p>
           </div>
         </div>
       </div>
@@ -173,20 +172,24 @@
       <h2>What it does</h2>
       <div class="card">
         <div class="feat">
-          <div class="ico on"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5-2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2"/></svg></div>
-          <div><h3>Call, chat or text in one tap</h3><p>Pick Call, WhatsApp or SMS in the widget's side bar, then tap any name. Tap the mode again to open that app.</p></div>
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5-2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2"/></svg></div>
+          <div><h3>Tap a name. It calls.</h3><p>Favourites, Recents and Contacts, one swipe apart. Pull down to search the tab you're on, or use the keypad, which finds contacts as you type.</p></div>
         </div>
         <div class="feat">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 8v4l2 2"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path d="M3.55 20v-5h5"/></svg></div>
-          <div><h3>Your favourite contacts</h3><p>Your starred contacts, in your own order, A–Z or Z–A. The clock button opens your phone's call history.</p></div>
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg></div>
+          <div><h3>A call screen that's easy to use</h3><p>The caller's photo, big and clear. Answer and Decline where your thumb is; bold, round buttons for Mute, Keypad, Speaker, Hold and more. Call waiting, swap and merge, and quick text replies.</p></div>
+        </div>
+        <div class="feat">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 17.75l-6.17 3.25l1.18-6.87l-5-4.87l6.9-1l3.09-6.26l3.09 6.26l6.9 1l-5 4.87l1.18 6.87z"/></svg></div>
+          <div><h3>Your favourites, your way</h3><p>Put them in your own order. Select several calls or favourites with one swipe and delete or remove them together.</p></div>
+        </div>
+        <div class="feat">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></div>
+          <div><h3>Missed calls and blocking</h3><p>One tidy notification for missed calls. Block numbers, private callers, or anyone not in your contacts.</p></div>
         </div>
         <div class="feat">
           <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.5-.8 1.5-1.5s-.5-1.2-.5-2a1.5 1.5 0 0 1 1.5-1.5H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><path d="M7.5 11.5h.01"/><path d="M10 7.5h.01"/><path d="M14.5 7.5h.01"/></svg></div>
-          <div><h3>Looks the way you like</h3><p>Seven themes, accent colours, your phone's own font or three others, one or two columns, photos or clean icons.</p></div>
-        </div>
-        <div class="feat">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7l8-11h-6z"/></svg></div>
-          <div><h3>Always up to date</h3><p>New, renamed or starred contacts show up on their own. Uses almost no battery.</p></div>
+          <div><h3>Made to fit you</h3><p>Light and dark, six colours shared by the app and the widget, large and bold text, screen readers, small phones and foldables.</p></div>
         </div>
       </div>
     </section>
@@ -194,17 +197,20 @@
     <section>
       <h2>A closer look</h2>
       <div class="gallery">
-        <img src="img/modes.png" width="1080" height="1920" alt="Side bar with Call, WhatsApp and SMS modes" loading="lazy">
-        <img src="img/favourites.png" width="1080" height="1920" alt="Favourites in your own order, A–Z or Z–A" loading="lazy">
-        <img src="img/themes.png" width="1080" height="1920" alt="Glass, Paper, Midnight and Aurora themes" loading="lazy">
+        <figure><img src="img/recents.png" width="1080" height="1919" alt="Recents, with Edit and the All filter" loading="lazy"><figcaption>Recents</figcaption></figure>
+        <figure><img src="img/ringing.png" width="1080" height="1919" alt="An incoming call: big photo, Decline and Answer" loading="lazy"><figcaption>Incoming call</figcaption></figure>
+        <figure><img src="img/call.png" width="1080" height="1919" alt="On a call: Mute, Keypad, Speaker, Add call, Hold, Audio and End" loading="lazy"><figcaption>On a call</figcaption></figure>
+        <figure><img src="img/edit.png" width="1080" height="1919" alt="Favourites in Edit: tick several, drag to reorder" loading="lazy"><figcaption>Edit favourites</figcaption></figure>
+        <figure><img src="img/widget.png" width="1080" height="1919" alt="The Dial Deck widget on a home screen" loading="lazy"><figcaption>Home-screen widget</figcaption></figure>
+        <figure><img src="img/colours.png" width="1080" height="1919" alt="Six colours, in light and dark" loading="lazy"><figcaption>Your colour</figcaption></figure>
       </div>
     </section>
 
     <section>
       <h2>Private by design</h2>
       <div class="card private">
-        <div class="ico"><svg viewBox="0 0 24 24"><path d="M6 11h12v9H6z"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
-        <p><b>Nothing leaves your phone</b>Dial Deck has no internet access at all. No accounts, no ads, no tracking. Your contacts are only used to draw the widget.</p>
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-2.9 8.1-7 9.5c-4.1-1.4-7-5.1-7-9.5V6z"/></svg></div>
+        <p><b>Nothing leaves your phone</b>Dial Deck has no internet access at all. No accounts, no ads, no tracking. Your calls and contacts are only used on your phone.</p>
       </div>
     </section>
 
@@ -212,8 +218,12 @@
       <h2>Questions</h2>
       <div class="card faq">
         <details>
-          <summary>Why does it ask for contacts and phone?</summary>
-          <p>Contacts, to show your starred contacts in the widget with their names and photos. Phone, to place a call when you tap a name. Everything stays on your phone and is never sent anywhere; the app can't even connect to the internet.</p>
+          <summary>Can I go back to my old Phone app?</summary>
+          <p>Yes, any time: Android Settings › Apps › Default apps › Phone app, and pick the one you had. Dial Deck then stops reading your call history and works as a widget only.</p>
+        </details>
+        <details>
+          <summary>Why does it ask for these permissions?</summary>
+          <p>As your Phone app it needs your call history (for Recents and missed calls), contacts (names, photos and favourites) and phone (to make and receive calls). Everything stays on your phone and is never sent anywhere; the app can't even connect to the internet.</p>
         </details>
         <details>
           <summary>Is it really free?</summary>
@@ -221,11 +231,11 @@
         </details>
         <details>
           <summary>Which phones does it work on?</summary>
-          <p>Android 12 or newer, with any launcher that supports widgets: Pixel, Samsung, OnePlus, Vivo, Xiaomi, Niagara and more.</p>
+          <p>Android 12 or newer: Pixel, Samsung, OnePlus, Vivo, Xiaomi and more, including tablets and foldables.</p>
         </details>
         <details>
           <summary>How do I send feedback?</summary>
-          <p>Open Dial Deck and tap "Send feedback" at the bottom of the main screen. It opens your email app with the details filled in.</p>
+          <p>Open Dial Deck › Settings › Help › Send feedback. It opens your email app with the details filled in.</p>
         </details>
       </div>
     </section>
@@ -239,7 +249,7 @@
 </div>
 
 <!-- Sticky Google Play button; hides while the main button or the setup steps are on screen -->
-<div class="bar" id="bar"><div class="wrap"><a class="btn btn-green" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a></div></div>
+<div class="bar" id="bar"><div class="wrap"><a class="btn btn-accent" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a></div></div>
 
 <script>
   (function () {
