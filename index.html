@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dial Deck: a simple Phone app for Android</title>
-<meta name="description" content="A calm, simple Phone app for Android: big clear buttons, your favourites in your own order, a call screen that's easy to use, and a home-screen widget. Free, no ads, nothing leaves your phone.">
+<meta name="description" content="A simple Phone app for Android: big clear buttons, your favourites in your own order, a call screen that's easy to use, and a home-screen widget. Free, no ads, nothing leaves your phone.">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/png" href="img/favicon.png">
@@ -28,7 +28,8 @@
     }
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+  body { overflow-x: clip; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
     font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Google Sans", sans-serif;
@@ -114,6 +115,38 @@
   .bar .wrap { padding: 0; }
   .bar.hide { transform: translateY(110%); }
 
+
+  .wide { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  .fan { position: relative; height: clamp(360px, 92vw, 520px); margin: 34px auto 0; max-width: 520px; }
+  .fan img { position: absolute; top: 0; left: 50%; width: 46%; border-radius: 26px;
+             box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 24px 48px -22px rgba(8,45,34,.45); }
+  .fan .c { transform: translateX(-50%); z-index: 2; }
+  .fan .l { transform: translateX(-108%) translateY(7%) rotate(-7deg); opacity: .96; }
+  .fan .r { transform: translateX(8%) translateY(7%) rotate(7deg); opacity: .96; }
+  .stories { padding-top: 26px; width: min(1000px, calc(100vw - 32px)); margin-left: calc(50% - min(500px, calc(50vw - 16px))); }
+  .story { display: grid; gap: 18px; align-items: center; padding: 34px 0; }
+  .story + .story { border-top: 1.5px solid var(--line); }
+  .story img { display: block; width: 74%; max-width: 330px; margin: 0 auto; border-radius: 28px;
+               box-shadow: 0 0 0 1px var(--line), 0 26px 50px -30px rgba(8,45,34,.45); }
+  .story .k { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  .story h3 { font-size: clamp(26px, 6.4vw, 34px); line-height: 1.12; font-weight: 600; letter-spacing: -.3px; margin: 0 0 12px; }
+  .story p { color: var(--muted); font-size: 16.5px; margin: 0 0 10px; }
+  .story ul { margin: 0; padding: 0; list-style: none; }
+  .story li { position: relative; padding-left: 26px; margin: 8px 0; color: var(--ink); font-size: 16px; }
+  .story li::before { content: ""; position: absolute; left: 2px; top: .45em; width: 12px; height: 12px; border-radius: 50%;
+                      background: var(--tint); box-shadow: inset 0 0 0 3.5px var(--accent); }
+  @media (min-width: 860px) {
+    .story { grid-template-columns: 1fr 1fr; gap: 56px; padding: 56px 0; }
+    .story img { width: 100%; }
+    .story:nth-child(even) .pic { order: 2; }
+  }
+  .more { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  .more div { background: var(--card); border-radius: 20px; padding: 16px; }
+  .more b { display: block; font-size: 15.5px; margin-bottom: 3px; }
+  .more span { color: var(--muted); font-size: 14px; }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,0,0,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
   @media (min-width: 720px) { .gallery figure { width: 230px; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -133,11 +166,14 @@
   <main>
     <div class="hero">
       <h1>A <em>simple</em> Phone app</h1>
-      <p class="lead">Your calls, favourites and contacts in one calm place, with big clear buttons and a call screen that's easy to use. Plus a home-screen widget for the people you call most.</p>
+      <p class="lead">Your favourites, recent calls and contacts in one simple place, with big clear buttons, a call screen that's easy to use, and a home-screen widget for the people you call most.</p>
       <a class="btn btn-accent" id="get" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a>
       <p class="note">Free · No ads · Android 12 and newer</p>
-      <img class="hero-img" src="img/hero.png" width="960" height="862"
-           alt="Dial Deck: Recents on the left, an incoming call on the right">
+      <div class="fan" aria-hidden="true">
+        <img class="l" src="img/shot2.jpg" width="720" height="1440" alt="">
+        <img class="r" src="img/shot3.jpg" width="720" height="1440" alt="">
+        <img class="c" src="img/shot1.jpg" width="720" height="1440" alt="">
+      </div>
     </div>
 
     <section id="setup">
@@ -168,49 +204,45 @@
       </div>
     </section>
 
-    <section>
-      <h2>What it does</h2>
-      <div class="card">
-        <div class="feat">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5-2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2"/></svg></div>
-          <div><h3>Tap a name. It calls.</h3><p>Favourites, Recents and Contacts, one swipe apart. Pull down to search the tab you're on, or use the keypad, which finds contacts as you type.</p></div>
-        </div>
-        <div class="feat">
-          <div class="ico"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg></div>
-          <div><h3>A call screen that's easy to use</h3><p>The caller's photo, big and clear. Answer and Decline where your thumb is; bold, round buttons for Mute, Keypad, Speaker, Hold and more. Call waiting, swap and merge, and quick text replies.</p></div>
-        </div>
-        <div class="feat">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 17.75l-6.17 3.25l1.18-6.87l-5-4.87l6.9-1l3.09-6.26l3.09 6.26l6.9 1l-5 4.87l1.18 6.87z"/></svg></div>
-          <div><h3>Your favourites, your way</h3><p>Put them in your own order. Select several calls or favourites with one swipe and delete or remove them together.</p></div>
-        </div>
-        <div class="feat">
-          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></div>
-          <div><h3>Missed calls and blocking</h3><p>One tidy notification for missed calls. Block numbers, private callers, or anyone not in your contacts.</p></div>
-        </div>
-        <div class="feat">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.5-.8 1.5-1.5s-.5-1.2-.5-2a1.5 1.5 0 0 1 1.5-1.5H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><path d="M7.5 11.5h.01"/><path d="M10 7.5h.01"/><path d="M14.5 7.5h.01"/></svg></div>
-          <div><h3>Made to fit you</h3><p>Light and dark, six colours shared by the app and the widget, large and bold text, screen readers, small phones and foldables.</p></div>
-        </div>
+    <section class="stories">
+      <h2>Why people like it</h2>
+      <div class="story reveal">
+        <div class="pic"><img src="img/shot1.jpg" width="720" height="1440" alt="The Dial Deck widget in WhatsApp mode, with labels for tap a name, the three modes and Recents or Favourites" loading="lazy"></div>
+        <div><p class="k">Home screen</p><h3>Your people, one tap away</h3><p>The Dial Deck widget puts your favourites and recent calls right on your home screen.</p><ul><li>Choose Call, WhatsApp or Message on its side bar, then tap a name</li><li>Switch between Recents and Favourites with one tap</li><li>Seven widget themes, from Glass to see-through Clear</li></ul></div>
+      </div>
+      <div class="story reveal">
+        <div class="pic"><img src="img/shot2.jpg" width="720" height="1440" alt="Recents with large text: names stay clear and buttons are big" loading="lazy"></div>
+        <div><p class="k">Easy to use</p><h3>Calm and easy to read</h3><p>Big, clear buttons right under your thumb, and text that stays readable.</p><ul><li>Works with large text and bold text</li><li>Big touch targets everywhere</li><li>Screen readers like TalkBack are supported</li></ul></div>
+      </div>
+      <div class="story reveal">
+        <div class="pic"><img src="img/shot3.jpg" width="720" height="1440" alt="Six colour choices and the home-screen icon in each colour" loading="lazy"></div>
+        <div><p class="k">Your colour</p><h3>Your colour, everywhere</h3><p>Pick Green, Blue, Violet, Coral, Pink or Gold.</p><ul><li>The app, the widget and the home-screen icon follow your choice</li><li>Every colour works in light and dark</li></ul></div>
+      </div>
+      <div class="story reveal">
+        <div class="pic"><img src="img/shot4.jpg" width="720" height="1440" alt="Settings, About: everything stays on your phone, no internet access, no ads, no tracking" loading="lazy"></div>
+        <div><p class="k">Privacy</p><h3>Private by design</h3><p>Dial Deck has no internet access at all. Your calls and contacts never leave your phone.</p><ul><li>No ads and no tracking</li><li>No account to make</li><li>Nothing is sent anywhere</li></ul></div>
+      </div>
+      <div class="story reveal">
+        <div class="pic"><img src="img/shot5.jpg" width="720" height="1440" alt="Recents in Edit: three calls ticked with one slide" loading="lazy"></div>
+        <div><p class="k">Tidy up</p><h3>Pick calls like photos</h3><p>Tap Edit and slide down the circles to tick a whole run of calls, then delete them together.</p><ul><li>Put favourites in your own order: tap Edit, then drag</li><li>Press and hold any name for more options</li></ul></div>
+      </div>
+      <div class="story reveal">
+        <div class="pic"><img src="img/shot6.jpg" width="720" height="1440" alt="On a call: the caller's photo glides into the call card" loading="lazy"></div>
+        <div><p class="k">Calls</p><h3>Smooth and fluid</h3><p>When you answer, the caller's photo glides into place. Every button is big, round and where you expect it.</p><ul><li>Mute, Keypad, Speaker, Add call and Hold</li><li>Call waiting, and quick replies when you can't talk</li></ul></div>
+      </div>
+      <div class="story reveal">
+        <div class="pic"><img src="img/shot7.jpg" width="720" height="1440" alt="Recents in light and in dark, with the System, Light and Dark switch" loading="lazy"></div>
+        <div><p class="k">Day and night</p><h3>Light or dark</h3><p>Choose light, dark, or follow your phone.</p><ul><li>Easy on your eyes at night</li><li>Your colour carries over to both</li></ul></div>
       </div>
     </section>
 
     <section>
-      <h2>A closer look</h2>
-      <div class="gallery">
-        <figure><img src="img/recents.png" width="1080" height="1919" alt="Recents, with Edit and the All filter" loading="lazy"><figcaption>Recents</figcaption></figure>
-        <figure><img src="img/ringing.png" width="1080" height="1919" alt="An incoming call: big photo, Decline and Answer" loading="lazy"><figcaption>Incoming call</figcaption></figure>
-        <figure><img src="img/call.png" width="1080" height="1919" alt="On a call: Mute, Keypad, Speaker, Add call, Hold, Audio and End" loading="lazy"><figcaption>On a call</figcaption></figure>
-        <figure><img src="img/edit.png" width="1080" height="1919" alt="Favourites in Edit: tick several, drag to reorder" loading="lazy"><figcaption>Edit favourites</figcaption></figure>
-        <figure><img src="img/widget.png" width="1080" height="1919" alt="The Dial Deck widget on a home screen" loading="lazy"><figcaption>Home-screen widget</figcaption></figure>
-        <figure><img src="img/colours.png" width="1080" height="1919" alt="Six colours, in light and dark" loading="lazy"><figcaption>Your colour</figcaption></figure>
-      </div>
-    </section>
-
-    <section>
-      <h2>Private by design</h2>
-      <div class="card private">
-        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-2.9 8.1-7 9.5c-4.1-1.4-7-5.1-7-9.5V6z"/></svg></div>
-        <p><b>Nothing leaves your phone</b>Dial Deck has no internet access at all. No accounts, no ads, no tracking. Your calls and contacts are only used on your phone.</p>
+      <h2>And more</h2>
+      <div class="more reveal">
+        <div><b>Missed calls</b><span>One tidy notification, with Call back and Message</span></div>
+        <div><b>Blocking</b><span>Numbers, private callers, or anyone not in your contacts</span></div>
+        <div><b>Smart keypad</b><span>Finds contacts as you type numbers or letters</span></div>
+        <div><b>One search</b><span>Searches the tab you're on</span></div>
       </div>
     </section>
 
@@ -252,6 +284,14 @@
 <div class="bar" id="bar"><div class="wrap"><a class="btn btn-accent" href="https://play.google.com/store/apps/details?id=com.himavarshan.dialdeck" target="_blank" rel="noopener">Get it on Google Play</a></div></div>
 
 <script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    // already on screen when the page opens: show at once
+    els.forEach(function (e) { if (e.getBoundingClientRect().top < window.innerHeight) e.classList.add('in'); });
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var ro = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } }); }, { threshold: 0.15 });
+    els.forEach(function (e) { ro.observe(e); });
+  })();
   (function () {
     var bar = document.getElementById('bar');
     var watch = [document.getElementById('get'), document.getElementById('setup')];
